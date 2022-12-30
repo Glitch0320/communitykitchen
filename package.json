@@ -1,5 +1,5 @@
 {
-  "name": "community_kitchen",
+  "name": "communitykitchen",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,12 @@
     "dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "install": "cd client && npm i && cd ../server && npm i",
-    "seed": "node server/seeds/seed.js"
+    "seed": "node server/seeds/seed.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build",
+    "start": "node server/server.js"
+  },
+  "engines": {
+    "node": "16.17.1"
   },
   "keywords": [],
   "author": "",
