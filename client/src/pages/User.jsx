@@ -4,14 +4,17 @@ import { Container, Modal, Form, Button } from "react-bootstrap/"
 import { useAppContext } from '../utils/AppContext'
 import { FaEdit } from 'react-icons/fa'
 import { AiFillCloseSquare } from 'react-icons/ai'
+import Cookie from 'js-cookie'
 
 const User = (props) => {
-  // id is the name of the wildcard variable we specified in the route in App.js
+
+  const { appState } = useAppContext()
+  if (!Cookie.get('auth-token') || !appState.user) window.location.href = '/'
+  
   const { id } = useParams()
 
   const [user, setUser] = useState(null)
   const [update, setUpdate] = useState({ username: '', email: "", zipCode: '' })
-  const { appState } = useAppContext()
   const [show, setShow] = useState(false)
   const [show2, setShow2] = useState(false)
   const [postId, setPostId] = useState(null)
