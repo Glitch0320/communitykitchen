@@ -5,7 +5,6 @@ const UserSchema = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
   email: {
@@ -14,12 +13,13 @@ const UserSchema = new Schema({
     unique: true,
     match: [
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Please fill a valid email address",
+      "Please enter a valid email address",
     ],
   },
-  zipCode: { type: String },
+  contact: { type: String, maxlength: 32, default: 'email' },
+  zipCode: { type: String, minlength: 5, maxlength: 5 },
   posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
-  password: { type: String },
+  password: { type: String, minlength: 8, maxlength: 20 }
 })
 
 UserSchema.pre("save", async function (next) {

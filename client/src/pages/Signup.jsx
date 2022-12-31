@@ -8,6 +8,14 @@ const Signup = (props) => {
 
     const handleSignup = async (e) => {
         e.preventDefault()
+        if (!signupCreds.username) return setFormMessage({ type: 'danger', msg: 'Please enter username' })
+        if (!signupCreds.email) return setFormMessage({ type: 'danger', msg: 'Please enter email' })
+        if (!signupCreds.zipCode) return setFormMessage({ type: 'danger', msg: 'Please enter zip code' })
+        if (signupCreds.zipCode.length !== 5) return setFormMessage({ type: 'danger', msg: 'Zip code should be a standard 5 digit zip code' })
+        if (!signupCreds.password) return setFormMessage({ type: 'danger', msg: 'Please enter password' })
+        if (signupCreds.password.length < 8 || signupCreds.password.length > 20) return setFormMessage({ type: 'danger', msg: 'Password should be between 8 and 20 characters' })
+        if (!signupCreds.confirm) return setFormMessage({ type: 'danger', msg: 'Please confirm password' })
+        if (signupCreds.password !== signupCreds.confirm) return setFormMessage({ type: 'danger', msg: 'Passwords must match' })
         setFormMessage({ type: "", msg: "" })
         const res = await fetch("/api/user/", {
             method: "POST",
@@ -34,7 +42,7 @@ const Signup = (props) => {
         window.location.href = '/kitchen'
     }
 
-    const style={
+    const style = {
         form: {
             color: 'blanchedalmond',
             textAlign: 'center'
@@ -43,9 +51,9 @@ const Signup = (props) => {
 
     return (
         <Container>
-            <Form 
-            style={style.form}
-            onSubmit={handleSignup}>
+            <Form
+                style={style.form}
+                onSubmit={handleSignup}>
                 <Form.Group className="mb-3" controlId="username">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
@@ -101,6 +109,12 @@ const Signup = (props) => {
                     />
                 </Form.Group>
 
+                {formMessage.msg.length > 0 && (
+                    <Alert variant={formMessage.type} style={{ marginTop: "2em" }}>
+                        {formMessage.msg}
+                    </Alert>
+                )}
+
                 <Button variant="success"
                     className='m-2'
                     type="submit">Submit</Button>
@@ -113,11 +127,6 @@ const Signup = (props) => {
                     className='m-2'>Login</Button>
             </Form>
 
-            {formMessage.msg.length > 0 && (
-                <Alert variant={formMessage.type} style={{ marginTop: "2em" }}>
-                    {formMessage.msg}
-                </Alert>
-            )}
         </Container>
     )
 }

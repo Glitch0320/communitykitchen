@@ -29,6 +29,8 @@ const Home = () => {
 
   const createPost = async e => {
     e.preventDefault()
+    if (!post.item) return alert('Please enter item')
+    if (!post.price) return alert('Please enter item price')
     const res = await fetch(`/api/posts/${appState.user._id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -43,6 +45,10 @@ const Home = () => {
     if (res.ok) {
       const newPost = await res.json()
       setPosts([...posts, {...newPost, user }])
+      setPost({
+        item: '',
+        price: ''
+      })
       setShow(false)
     } else {
       setShow(false)
@@ -107,6 +113,7 @@ const Home = () => {
                 type="text"
                 name="item"
                 placeholder="Potatoes..."
+                maxLength={32}
                 value={post.item}
                 onChange={(e) => setPost({ ...post, [e.target.name]: e.target.value })}
               />
@@ -119,6 +126,7 @@ const Home = () => {
                 name="price"
                 placeholder="$5 per lb..."
                 value={post.price}
+                maxLength={32}
                 onChange={(e) => setPost({ ...post, [e.target.name]: e.target.value })}
               />
             </Form.Group>
