@@ -2,8 +2,8 @@ const { Schema, model } = require("mongoose")
 
 const postSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User' },
-  item: { type: String },
-  price: { type: String },
+  item: { type: String, maxlength: 32 },
+  price: { type: String, maxlength: 32 },
   zipCode: { type: String }
 })
 
