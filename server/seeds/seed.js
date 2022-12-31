@@ -3,10 +3,10 @@ const connection = require("../config/connection")
 
 const testUser = {
   "_id": "63a7b53fee01fe4d8ddbeadf",
-  "username": "test",
-  "email": "test@gmail.com",
+  "username": "Dave",
+  "email": "dave@gmail.com",
   "password": "hashthis",
-  "zipCode": "0010",
+  "zipCode": "90755",
   "posts": [
     "63a7b6043b2c53ddbc5d71af",
     "63a7b612ced80227a5e8e876"
@@ -18,15 +18,15 @@ const post1 = {
   "user": "63a7b53fee01fe4d8ddbeadf",
   "item": "potatoes",
   "price": "5$ per pound",
-  "zipCode": "0010"
+  "zipCode": "90755"
 }
 
 const post2 = {
   "_id": "63a7b612ced80227a5e8e876",
   "user": "63a7b53fee01fe4d8ddbeadf",
-  "item": "potatoes",
-  "price": "5$ per pound",
-  "zipCode": "0010"
+  "item": "sweet corn",
+  "price": "2$ per ear",
+  "zipCode": "90755"
 }
 
 const seed = async () => {

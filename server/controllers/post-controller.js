@@ -34,7 +34,10 @@ const deletePost = async (req, res) => {
     await Post.findByIdAndDelete(req.params.postId)
     const user = await User.findByIdAndUpdate(req.params.userId, {
       $pull: { posts: req.params.postId }
-    }, { new: true })
+    }, { new: true }).populate({
+      path: 'posts',
+      select: ['item', 'price']
+    })
     res.status(200).json(user)
   } catch (err) {
     res.status(400).json({ message: 'Unable to delete post' })

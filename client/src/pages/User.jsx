@@ -25,7 +25,7 @@ const User = (props) => {
     if (parsedResponse.result === "success") {
       setUser(parsedResponse.payload)
       const p = parsedResponse.payload
-      setUpdate({ username: p.username, email: p.email, zipCode: p.zipCode })
+      setUpdate({ username: p.username, email: p.email, zipCode: p.zipCode, contact: p.contact })
     }
   }
 
@@ -64,11 +64,13 @@ const User = (props) => {
       justifyContent: 'space-around'
     },
     edit: {
-      position: 'absolute',
       zIndex: 10,
       height: 'auto',
-      width: '2rem',
-      left: '30%'
+      width: '2rem'
+    },
+    name: {
+      display: 'flex',
+      justifyContent: 'space-evenly'
     },
     h2: {
       marginTop: '2rem'
@@ -89,30 +91,38 @@ const User = (props) => {
         <>{
           id === appState.user._id ?
             <div>
-              <FaEdit
-                onClick={() => setShow(!show)}
-                style={style.edit} />
-              <h1>{user.username}</h1>
-              <h2 style={style.h2}>You are selling</h2>
+              <div style={style.name}>
+                <FaEdit
+                  onClick={() => setShow(!show)}
+                  style={style.edit} />
+                <h1>{user.username}</h1>
+                <span></span>
+              </div>
+              {user.posts.length > 0 ? 
+              <h2 style={style.h2}>You are selling</h2> :
+              <></>}
               {user.posts.map(p => <article
                 key={p._id}
                 style={style.post}
               >
                 {p.item} for {p.price}.
-                <AiFillCloseSquare 
-                onClick={e => {
-                  setPostId(p._id)
-                  setShow2(true)
-                }}
-                style={style.postDelete} />
+                <AiFillCloseSquare
+                  onClick={e => {
+                    setPostId(p._id)
+                    setShow2(true)
+                  }}
+                  style={style.postDelete} />
               </article>)}
             </div> :
             <div>
               <h1>{user.username}</h1>
-              <h2>{user.email}</h2>
+              <h2>Contact:</h2>
+              {user.contact === 'email' || user.contact === user.email ?
+                <h3>{user.email}</h3> : <h3>{user.contact}</h3>}
             </div>
         }</>
-      )}
+      )
+      }
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Update Info</Modal.Title>
@@ -152,6 +162,17 @@ const User = (props) => {
               />
             </Form.Group>
 
+            <Form.Group className="mb-3" controlId="contact">
+              <Form.Label>Contact</Form.Label>
+              <Form.Control
+                type="text"
+                name="contact"
+                placeholder="How should buyers connect?"
+                value={update.contact}
+                onChange={(e) => setUpdate({ ...update, [e.target.name]: e.target.value })}
+              />
+            </Form.Group>
+
             <Button variant="primary" type="submit">Submit</Button>
           </Form>
         </Modal.Body>
@@ -174,7 +195,7 @@ const User = (props) => {
           </Button>
         </Modal.Footer>
       </Modal>
-    </Container>
+    </Container >
   )
 }
 
