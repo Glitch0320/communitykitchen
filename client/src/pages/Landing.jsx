@@ -1,6 +1,10 @@
+import Login from "../components/Login"
+import Signup from "../components/Signup"
 import { Button } from 'react-bootstrap'
+import { useState } from "react"
 
 const Landing = () => {
+  const [form, setForm] = useState(null)
   const style = {
     main: {
       color: 'blanchedalmond',
@@ -8,22 +12,15 @@ const Landing = () => {
     },
     section: {
       margin: '1rem'
-    },
-    img: {
-      width: '90%',
-      height: 'auto',
-      margin: '1.5rem 0'
     }
   }
   return (
     <main style={style.main}>
+      <h1 className='display-1 text-light bg-dark border border-success rounded mt-3'>Community Kitchen</h1>
       <section style={style.section}>Bypass commercial sellers and go directly to the source. People in your area have food to sell!</section>
-      <Button
-        onClick={() => window.location.href = '/login'}
-        className='btn-success'>Login</Button> or <Button
-          onClick={() => window.location.href = '/signup'}
-          className='btn-success'>Signup</Button>
-      <img className="img-thumbnail" style={style.img} src='/images/local_food.jpg' alt='Several types of food on a table at a market' />
+      {!form && <><Button variant='success' onClick={() => setForm('login')}>Login</Button> or <Button variant='success' onClick={() => setForm('signup')}>Signup</Button></>}
+      {form === 'login' && <Login setForm={setForm} />}
+      {form === 'signup' && <Signup setForm={setForm} />}
     </main>
   )
 }

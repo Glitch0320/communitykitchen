@@ -2,7 +2,7 @@ import { useState } from "react"
 import Cookie from "js-cookie"
 import { Alert, Button, Container, Form } from 'react-bootstrap'
 
-const Login = (props) => {
+const Login = ({ setForm }) => {
   const [loginCreds, setLoginCreds] = useState({ email: "", password: "" })
   const [formMessage, setFormMessage] = useState({ type: "", msg: "" })
 
@@ -67,7 +67,7 @@ const Login = (props) => {
         or <Button
           onClick={e => {
             e.preventDefault()
-            window.location.href = '/signup'
+            setForm('signup')
           }}
           variant='success'
           className='m-2'>Signup</Button>

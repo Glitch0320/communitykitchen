@@ -100,7 +100,7 @@ const User = (props) => {
               </div>
               {user.posts.length > 0 ? 
               <h2 style={style.h2}>You are selling</h2> :
-              <></>}
+              <h2 style={style.h2}>Your posts will appear here.</h2>}
               {user.posts.map(p => <article
                 key={p._id}
                 style={style.post}
@@ -117,7 +117,7 @@ const User = (props) => {
             <div>
               <h1>{user.username}</h1>
               <h2>Contact:</h2>
-              {user.contact === 'email' || user.contact === user.email ?
+              {user.contact === 'email' || user.contact === user.email || !user.contact ?
                 <h3>{user.email}</h3> : <h3>{user.contact}</h3>}
             </div>
         }</>

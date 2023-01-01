@@ -15,11 +15,9 @@ const Navigation = (props) => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/kitchen">Home</Nav.Link>
-            {!appState.user ? <><Nav.Link href="/login">Login</Nav.Link><Nav.Link href="/signup">Signup</Nav.Link></> : <>
-            <Nav.Link onClick={logout}>Logout</Nav.Link>
             <Nav.Link href={`/user/${appState.user._id}`}>Profile</Nav.Link>
+            <Nav.Link onClick={logout}>Logout</Nav.Link>
             <Nav.Link href='https://drive.google.com/file/d/1_cXoUtWVwF-8Ulngyth80VRpXTKmTviI/view'>Help</Nav.Link>
-            </>}
           </Nav>
         </Navbar.Collapse>
       </Container>
